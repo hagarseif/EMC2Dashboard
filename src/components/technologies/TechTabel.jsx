@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardBody, CardTitle, Col, Row, Table } from "reactstrap";
-import { GetIndustryTech, GetProductTech } from "./apiTechnology";
+import { GetProductTech } from "./apiTechnology";
 import Loader from "../../layouts/loader/Loader";
 function TechTabel() {
 

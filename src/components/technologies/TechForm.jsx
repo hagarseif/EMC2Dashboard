@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import {
   Card,
@@ -10,22 +10,22 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import { addTech } from "./apiTechnology";
-import toast from "react-hot-toast/headless";
+// import { addTech } from "./apiTechnology";
+// import toast from "react-hot-toast/headless";
 
 function TechForm() {
-  const queryClient=useQueryClient()
-  const {isLoading,mutate}=useMutation({
-    mutationFn:addTech,
-    onSuccess:()=>{
-      toast.success("New Technology successfully added")
-      queryClient.invalidateQueries({
-        queryKey:['tech']
-      })
-    },
-    onError:(err)=>toast.error(err.message)
+  // const queryClient=useQueryClient()
+  // const {isLoading,mutate}=useMutation({
+  //   mutationFn:addTech,
+  //   onSuccess:()=>{
+  //     toast.success("New Technology successfully added")
+  //     queryClient.invalidateQueries({
+  //       queryKey:['tech']
+  //     })
+  //   },
+  //   onError:(err)=>toast.error(err.message)
 
-  })
+  // })
   const {register,handleSubmit}= useForm();
   function onSubmit(data){
     console.log(data);

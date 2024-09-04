@@ -31,7 +31,7 @@ export const deleteIndustry = (id) => {
     });
 };
 //////////////////////////////add//////////////////////////////
-const addTech = (url, data) => {
+export const addIndustry = (url, data) => {
   return axios.post(url, data)
     .then(response => {
       // Handle the response data
