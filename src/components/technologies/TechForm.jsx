@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import {
   Card,
@@ -10,25 +10,27 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-// import { addTech } from "./apiTechnology";
-// import toast from "react-hot-toast/headless";
+import { addTech } from "./apiTechnology";
+import toast from "react-hot-toast/headless";
 
 function TechForm() {
-  // const queryClient=useQueryClient()
-  // const {isLoading,mutate}=useMutation({
-  //   mutationFn:addTech,
-  //   onSuccess:()=>{
-  //     toast.success("New Technology successfully added")
-  //     queryClient.invalidateQueries({
-  //       queryKey:['tech']
-  //     })
-  //   },
-  //   onError:(err)=>toast.error(err.message)
+  const {register,handleSubmit,reset}= useForm();
 
-  // })
-  const {register,handleSubmit}= useForm();
+  const queryClient=useQueryClient()
+  const {isLoading:isCreating,mutate}=useMutation({
+    mutationFn:addTech,
+    onSuccess:()=>{
+      toast.success("New Technology successfully added")
+      queryClient.invalidateQueries({
+        queryKey:['tech']
+      })
+      reset()
+    },
+    onError:(err)=>toast.error(err.message)
+
+  })
   function onSubmit(data){
-    console.log(data);
+    mutate(data)
     
   }
   return (
@@ -75,7 +77,7 @@ function TechForm() {
                 <option>Product</option>
               </select>
             </FormGroup>
-            <Button className="btn mt-2" color="primary">
+            <Button className="btn mt-2" color="primary" disabled={isCreating}>
               Add
             </Button>
           </Form>

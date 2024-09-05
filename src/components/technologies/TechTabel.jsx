@@ -4,16 +4,16 @@ import { GetProductTech } from "./apiTechnology";
 import Loader from "../../layouts/loader/Loader";
 function TechTabel() {
 
-  const { isLoading,data: techProduct } = useQuery({
-    queryKey: ["tech"],
-    queryFn: GetProductTech,
-  });
+  // const { isLoading,data: techProduct } = useQuery({
+  //   queryKey: ["tech"],
+  //   queryFn: GetProductTech,
+  // });
   // const { isLoading, data: techIndustry } = useQuery({
   //   queryKey: ["tech"],
   //   queryFn: GetIndustryTech,
   // });
 
-  if(isLoading) return <Loader/>
+  // if(isLoading) return <Loader/>
   return (
     <Row>
       <Col lg="12">
@@ -59,7 +59,7 @@ function TechTabel() {
                       </td>
                     </tr>
                   ))} */}
-                  {techProduct.map((p) => (
+                  {/* {techProduct.map((p) => (
                     <tr className="border-top" key={p.id}>
                       <td>
                         <span className="mb-0">{p.arName}</span>
@@ -81,7 +81,7 @@ function TechTabel() {
                         </button>
                       </td>
                     </tr>
-                  ))}
+                  ))} */}
                 </tbody>
               </Table>
             </CardBody>
