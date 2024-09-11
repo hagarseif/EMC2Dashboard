@@ -10,28 +10,49 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import { addTech } from "./apiTechnology";
+import { addProductTech,addIndustryech } from "./apiTechnology";
 import toast from "react-hot-toast/headless";
+import { useState } from "react";
 
 function TechForm() {
-  const {register,handleSubmit,reset}= useForm();
+  const { register, handleSubmit, reset } = useForm();
+  // const [techType, setTechType] = useState("");
 
-  const queryClient=useQueryClient()
-  const {isLoading:isCreating,mutate}=useMutation({
-    mutationFn:addTech,
-    onSuccess:()=>{
-      toast.success("New Technology successfully added")
+  // const checkType = (e) => {
+  //   if (e.target.value === "industry") {
+  //     setTechType("industry");
+  //     console.log(techType);
+  //   } else {
+  //     setTechType("product");
+  //   }
+  // };
+
+  const queryClient = useQueryClient();
+  const { isLoading: isCreating, mutate:techProduct } = useMutation({
+    mutationFn: addProductTech,
+    onSuccess: () => {
+      toast.success("New Technology successfully added");
       queryClient.invalidateQueries({
-        queryKey:['tech']
-      })
-      reset()
+        queryKey: ["tech"],
+      });
+      reset();
     },
-    onError:(err)=>toast.error(err.message)
-
-  })
-  function onSubmit(data){
-    mutate(data)
-    
+    onError: (err) => toast.error(err.message),
+  });
+  const { mutate:techIndustry } = useMutation({
+    mutationFn: addIndustryTech,
+    onSuccess: () => {
+      toast.success("New Technology successfully added");
+      queryClient.invalidateQueries({
+        queryKey: ["techIndustry"],
+      });
+      reset();
+    },
+    onError: (err) => toast.error(err.message),
+  });
+  function onSubmit(data) {
+    if(techType === "industry")
+    techProduct(data);
   }
   return (
     <Col>
@@ -73,8 +94,8 @@ function TechForm() {
                 <option value="" disabled selected>
                   Please select an option
                 </option>
-                <option>Industry</option>
-                <option>Product</option>
+                <option value="industry">Industry</option>
+                <option value="product">Product</option>
               </select>
             </FormGroup>
             <Button className="btn mt-2" color="primary" disabled={isCreating}>

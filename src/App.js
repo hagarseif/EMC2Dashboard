@@ -4,6 +4,7 @@ import Starter from "./pages/Starter";
 import Services from "./pages/Services";
 import Industry from "./pages/Industry";
 import Technologies from "./pages/Technologies";
+import Clients from "./pages/Clients";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 
@@ -26,6 +27,8 @@ function App() {
               <Route path="services" element={<Services />} />
               <Route path="industries" element={<Industry />} />
               <Route path="technologies" element={<Technologies />} />
+              <Route path="services" element={<Services/>} />
+              <Route path="ourClintes" element={<Clients/>} />
             </Route>
           </Routes>
         </BrowserRouter>

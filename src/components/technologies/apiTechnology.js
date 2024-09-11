@@ -32,10 +32,11 @@ export const GetProductTech = async () => {
         throw error; // Re-throw the error to be handled by the caller
       });
   };
+
 ////////////////////////////////delete
 export const deleteTech = (id) => {
     return axios
-    .delete(`${baseUrl}api/Technolgy/api/Delete/${id}`)
+    .delete(`${baseUrl}api/Technolgy/api/Delete?id=${id}`)
     .then((res) => {
       console.log(res.data);
     })
@@ -46,8 +47,22 @@ export const deleteTech = (id) => {
     });
 };
 //////////////////////////////add//////////////////////////////
-export const addTech = (data) => {
-  return axios.post(`${baseUrl}api/Technolgy/api/AddProductTech`, [data])
+export const addProductTech = (data) => {
+  return axios.post(`${baseUrl}api/Technolgy/api/AddProductTech`, data)
+    .then(response => {
+      // Handle the response data
+      console.log('Post successful:', response.data);
+      return response.data;  // Return the response data for further use
+    })
+    .catch(error => {
+      // Handle the error
+      console.error('Error posting data:', error);
+      throw new Error("Couldn’t add Technology");  // Re-throw the error to be handled by the caller
+    });
+};
+//or
+export const addIndustryech = (data) => {
+  return axios.post(`${baseUrl}api/Technolgy/api/AddIndustryTech`, data)
     .then(response => {
       // Handle the response data
       console.log('Post successful:', response.data);

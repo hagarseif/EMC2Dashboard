@@ -3,14 +3,23 @@
 }
 .contentArea {
   flex-grow: 1;
+
 }
 .wrapper {
   max-width: 1300px;
   margin: 0 auto;
+  
 }
+
 .card {
   box-shadow: $card-box-shadow;
-  margin-bottom: 30px;
+}
+.edit-card{
+ box-shadow: 0 0 0;
+
+}
+.table-card{
+  margin-top: 2rem;
 }
 
 .circle-box {
