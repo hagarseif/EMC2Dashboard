@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetAllServices } from "./apiServices";
+import { GetAllServices } from "../../Apis/apiServices";
 
 export function useService() {
   ///////////////////for retrieve

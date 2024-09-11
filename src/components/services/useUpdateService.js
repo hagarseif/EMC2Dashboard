@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateService } from "./apiServices";
+import { updateService } from "../../Apis/apiServices";
 import toast from "react-hot-toast";
 
 export function useUpdateService() {
@@ -12,7 +12,6 @@ export function useUpdateService() {
         queryClient.invalidateQueries({
           queryKey: ["service"],
         });
-        // reset();
       },
       onError: (err) => toast.error(err.message),
     });

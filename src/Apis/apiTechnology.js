@@ -74,3 +74,16 @@ export const addIndustryech = (data) => {
       throw new Error("Couldn’t add Technology");  // Re-throw the error to be handled by the caller
     });
 };
+
+//////////////////update///////////////
+export const updateAllTech = ( updatedData,id) => {
+  return axios.put(`${baseUrl}api/Technolgy/api/Update?id=${id}`, updatedData)
+  .then(response => {
+    console.log('Data updated successfully:', response.data);
+  })
+  .catch(error => {
+    console.error('Error updating data:', error);
+    throw new Error("Couldn’t update Service");
+  });
+}
+

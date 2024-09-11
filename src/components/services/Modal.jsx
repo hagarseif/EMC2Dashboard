@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { Button } from "reactstrap";
 
-function ModalService({ children,onClose }) {
+function Modal({ children,onClose }) {
   return createPortal (
     <div className="overlay">
       <div className="modalForm">
@@ -13,4 +13,4 @@ function ModalService({ children,onClose }) {
   );
 }
 
-export default ModalService;
+export default Modal;

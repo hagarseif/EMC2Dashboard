@@ -1,12 +1,12 @@
 import { useState } from "react";
 import ServiceForm from "./ServiceForm";
 import { useDeleteService } from "./useDeleteService.js";
-import ModalService from "./ModalService.jsx";
+import Modal from "./Modal.jsx";
 
 function ServiceRow({ service }) {
   const { id, arName, enName } = service;
+  
   const [isOpenModal, setisOpenModal] = useState(false);
-
   const { isDeleting, deleteService } = useDeleteService();
   return (
     <>
@@ -44,9 +44,9 @@ function ServiceRow({ service }) {
       <tr>
         <td>
           {isOpenModal && (
-            <ModalService onClose={() => setisOpenModal(false)}>
+            <Modal onClose={() => setisOpenModal(false)}>
               <ServiceForm serviceToEdit={service} />
-            </ModalService>
+            </Modal>
           )}
         </td>
       </tr>

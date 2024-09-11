@@ -14,7 +14,7 @@ function ServiceTabel() {
   return (
     <Row>
       <Col lg="12">
-        <div className="table-card">
+        <div>
           <Card >
             <CardBody>
               <CardTitle tag="h5"> Services we offer</CardTitle>

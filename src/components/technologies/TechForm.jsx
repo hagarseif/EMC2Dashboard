@@ -1,4 +1,3 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import {
   Card,
@@ -9,57 +8,49 @@ import {
   Form,
   FormGroup,
   Label,
-} from "reactstrap";
-import { addProductTech,addIndustryech } from "./apiTechnology";
-import toast from "react-hot-toast/headless";
-import { useState } from "react";
+} from "reactstrap"; 
+import { useCreateTech } from "./useCreateTech";
+import useUpdateTech from "./useUpdateTech";
 
-function TechForm() {
-  const { register, handleSubmit, reset } = useForm();
-  // const [techType, setTechType] = useState("");
-
-  // const checkType = (e) => {
-  //   if (e.target.value === "industry") {
-  //     setTechType("industry");
-  //     console.log(techType);
-  //   } else {
-  //     setTechType("product");
-  //   }
-  // };
-
-  const queryClient = useQueryClient();
-  const { isLoading: isCreating, mutate:techProduct } = useMutation({
-    mutationFn: addProductTech,
-    onSuccess: () => {
-      toast.success("New Technology successfully added");
-      queryClient.invalidateQueries({
-        queryKey: ["tech"],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
+function TechForm({ techToEdit = {} }) {
+  
+  const { id: editId, ...editValues } = techToEdit;
+  const isEditSession = Boolean(editId);
+  
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: isEditSession ? editValues : {},
   });
-  const { mutate:techIndustry } = useMutation({
-    mutationFn: addIndustryTech,
-    onSuccess: () => {
-      toast.success("New Technology successfully added");
-      queryClient.invalidateQueries({
-        queryKey: ["techIndustry"],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isCreating, techIndustry, techProduct } = useCreateTech();
+  const {isUpdating,updateTech} =useUpdateTech()
+
+  
+  const isWorking = isCreating || isUpdating;
+
+
   function onSubmit(data) {
-    if(techType === "industry")
-    techProduct(data);
+    if (isEditSession)
+      updateTech({ newTech:{ ...data,id:editId}, id: editId });
+    else {
+      if (data.techType === "industry")
+        techIndustry(data, {
+          onSuccess: () => {
+            reset();
+          },
+        });
+      else
+        techProduct(data, {
+          onSuccess: () => {
+            reset();
+          },
+        });
+    }
   }
   return (
     <Col>
-      <Card>
+      <Card className={isEditSession?"edit-card":"card"}>
         <CardTitle tag="h6" className="border-bottom p-3 mb-0">
           <i className="bi bi-bell me-2"> </i>
-          Add new Technology
+         {isEditSession?"Update Technology": "Add new Technology"}
         </CardTitle>
         <CardBody>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -71,6 +62,7 @@ function TechForm() {
                 placeholder="Add Technology name"
                 type="text"
                 {...register("arName")}
+                disabled={isWorking}
               />
             </FormGroup>
             <FormGroup>
@@ -81,6 +73,7 @@ function TechForm() {
                 placeholder="Add Technology name"
                 type="text"
                 {...register("enName")}
+                disabled={isWorking}
               />
             </FormGroup>
             <FormGroup>
@@ -90,6 +83,7 @@ function TechForm() {
                 name="techeOption"
                 type="select"
                 {...register("techType")}
+                disabled={isWorking}
               >
                 <option value="" disabled selected>
                   Please select an option
@@ -99,7 +93,7 @@ function TechForm() {
               </select>
             </FormGroup>
             <Button className="btn mt-2" color="primary" disabled={isCreating}>
-              Add
+              {isEditSession?"Edit Tech" : "Add"}
             </Button>
           </Form>
         </CardBody>

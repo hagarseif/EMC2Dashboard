@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addService } from "./apiServices";
+import { addService } from "../../Apis/apiServices";
 import toast from "react-hot-toast";
 
 export function useCreateService() {
